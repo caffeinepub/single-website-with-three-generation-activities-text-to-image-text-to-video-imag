@@ -1,0 +1,149 @@
+{
+  "kind": "build_request",
+  "title": "Single website with three generation activities (text-to-image, text-to-video, image-to-video) using local demo generators",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "text": "Create a single-page website that offers three distinct activities/tools: Text-to-Image, Text-to-Video, and Image-to-Video, with clear navigation (tabs or segmented control) to switch between them without leaving the page.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "recent-messages"
+        ],
+        "quotes": [
+          "I want to single website different activities that's like a text to image image to video and takes to video"
+        ]
+      },
+      "acceptanceCriteria": [
+        "The landing view shows three selectable activities: Text-to-Image, Text-to-Video, Image-to-Video.",
+        "Switching activities preserves each activity’s form inputs until the user resets them.",
+        "All user-facing labels and helper text are in English."
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Implement a Text-to-Image activity UI that accepts a prompt (text), basic style controls (at least: aspect ratio and a simple style selector), and generates a downloadable image result using an on-device/demo generator (no external AI services).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "recent-messages"
+        ],
+        "quotes": [
+          "text to image"
+        ]
+      },
+      "acceptanceCriteria": [
+        "User can enter a prompt and click Generate to produce an image preview.",
+        "User can download the generated image (e.g., PNG).",
+        "If the prompt is empty, the UI prevents generation and shows an English validation message.",
+        "Generation runs locally in the browser (no third-party AI API calls)."
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Implement a Text-to-Video activity UI that accepts a prompt and simple motion controls (at least: duration and motion style) and generates a short downloadable demo video result locally in the browser (e.g., simple animated frames rendered to a video format supported by the browser).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "recent-messages"
+        ],
+        "quotes": [
+          "text to video"
+        ]
+      },
+      "acceptanceCriteria": [
+        "User can enter a prompt and click Generate to produce a video preview element.",
+        "User can download the generated video.",
+        "If the prompt is empty, the UI prevents generation and shows an English validation message.",
+        "No third-party AI API calls are used for generation."
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Implement an Image-to-Video activity UI that allows the user to upload an image, select simple animation controls (at least: duration and animation style), and generates a short downloadable demo video by animating the uploaded image locally in the browser.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "recent-messages"
+        ],
+        "quotes": [
+          "image to video"
+        ]
+      },
+      "acceptanceCriteria": [
+        "User can upload an image and see a preview of the uploaded image.",
+        "User can click Generate to produce a video preview derived from the uploaded image.",
+        "If no image is uploaded, the UI prevents generation and shows an English validation message.",
+        "No third-party AI API calls are used for generation."
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "text": "Add lightweight backend support (Motoko single-actor) to store a user’s generation history metadata (activity type, prompt, timestamps, and client-generated artifact identifiers/filenames) and expose query/update methods so the frontend can display a recent history list per signed-in user.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "recent-messages"
+        ],
+        "quotes": [
+          "single website different activities"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Backend provides methods to add a history entry and to list history entries for the authenticated user.",
+        "Frontend shows a 'Recent generations' panel listing at least: activity type, prompt (or a truncated version), and time.",
+        "History persists across page reloads for the same user identity.",
+        "No generated binary media is stored in the canister; only metadata is stored."
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "text": "Provide a coherent visual theme for the whole site (colors, typography, spacing, and component styling) and apply it consistently across all three activities and the history panel (avoid a blue/purple color scheme).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "recent-messages"
+        ]
+      },
+      "acceptanceCriteria": [
+        "All screens share a consistent theme (palette, type scale, spacing).",
+        "Primary/secondary actions have consistent styling across activities.",
+        "Theme does not rely on blue/purple as the dominant brand colors."
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "text": "Add basic UX states for all generators: generating/in-progress state, success state with preview, and failure state with an English error message (e.g., if the browser cannot export a video).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "recent-messages"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Generate button shows a loading state and is disabled during generation.",
+        "Errors are shown in English and do not crash the page.",
+        "Success shows a preview plus a download action."
+      ]
+    }
+  ],
+  "constraints": [
+    "Backend must remain a single Motoko actor with all logic in the main actor file defined by the template (backend/main.mo).",
+    "Do not modify any frontend files under the immutablePaths listed in SYSTEM_CONTEXT; compose UI using those components/hooks instead.",
+    "Do not use third-party AI model APIs or external databases/services for generation or storage; generation must be a local/demo implementation in the browser, and persistence (if any) must use the canister for metadata only.",
+    "Use English for all user-facing text."
+  ],
+  "nonGoals": [
+    "Implementing real AI text-to-image, text-to-video, or image-to-video using external model providers (e.g., OpenAI/Runway/etc.).",
+    "Storing large binary image/video artifacts in the canister.",
+    "Real-time collaboration, chat, or notifications."
+  ],
+  "imageRequirements": {
+    "required": [
+      "Minimalistic three-icon set representing: text-to-image, text-to-video, image-to-video (tool-icons.dim_512x512.png)",
+      "Simple wordmark logo, monochrome, clean geometric style (logo.dim_512x256.png)"
+    ],
+    "edits": []
+  }
+}

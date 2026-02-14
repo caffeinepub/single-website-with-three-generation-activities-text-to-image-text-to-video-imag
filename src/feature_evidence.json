@@ -1,0 +1,155 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-create-a-single-page-website-that-offers-three-distinct-activities-tools-text-to-image-text-to-video-and-image-to-video-with-clear-navigation-tabs-or-segmented-control-to-switch-between-them-without-leaving-the-page",
+      "featureTitle": "Create a single-page website that offers three distinct activities/tools: Text-to-Image, Text-to-Video, and Image-to-Video, with clear navigation (tabs or segmented control) to switch between them without leaving the page.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/features/generators/ImageToVideoTool.tsx",
+        "frontend/src/features/generators/TextToImageTool.tsx",
+        "frontend/src/features/generators/TextToVideoTool.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-1"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-a-text-to-image-activity-ui-that-accepts-a-prompt-text-basic-style-controls-at-least-aspect-ratio-and-a-simple-style-selector-and-generates-a-downloadable-image-result-using-an-on-device-demo-generator-no-external-ai-services",
+      "featureTitle": "Implement a Text-to-Image activity UI that accepts a prompt (text), basic style controls (at least: aspect ratio and a simple style selector), and generates a downloadable image result using an on-device/demo generator (no external AI services).",
+      "files": [
+        "frontend/src/features/generators/TextToImageTool.tsx",
+        "frontend/src/features/utils/download.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-2"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-a-text-to-video-activity-ui-that-accepts-a-prompt-and-simple-motion-controls-at-least-duration-and-motion-style-and-generates-a-short-downloadable-demo-video-result-locally-in-the-browser-e-g-simple-animated-frames-rendered-to-a-video-format-supported-by-the-browser",
+      "featureTitle": "Implement a Text-to-Video activity UI that accepts a prompt and simple motion controls (at least: duration and motion style) and generates a short downloadable demo video result locally in the browser (e.g., simple animated frames rendered to a video format supported by the browser).",
+      "files": [
+        "frontend/src/features/generators/TextToVideoTool.tsx",
+        "frontend/src/features/utils/mediaExport.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-3"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-an-image-to-video-activity-ui-that-allows-the-user-to-upload-an-image-select-simple-animation-controls-at-least-duration-and-animation-style-and-generates-a-short-downloadable-demo-video-by-animating-the-uploaded-image-locally-in-the-browser",
+      "featureTitle": "Implement an Image-to-Video activity UI that allows the user to upload an image, select simple animation controls (at least: duration and animation style), and generates a short downloadable demo video by animating the uploaded image locally in the browser.",
+      "files": [
+        "frontend/src/features/generators/ImageToVideoTool.tsx",
+        "frontend/src/features/utils/mediaExport.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-4"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-lightweight-backend-support-motoko-single-actor-to-store-a-user-s-generation-history-metadata-activity-type-prompt-timestamps-and-client-generated-artifact-identifiers-filenames-and-expose-query-update-methods-so-the-frontend-can-display-a-recent-history-list-per-signed-in-user",
+      "featureTitle": "Add lightweight backend support (Motoko single-actor) to store a user’s generation history metadata (activity type, prompt, timestamps, and client-generated artifact identifiers/filenames) and expose query/update methods so the frontend can display a recent history list per signed-in user.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/features/auth/LoginButton.tsx",
+        "frontend/src/features/generators/ImageToVideoTool.tsx",
+        "frontend/src/features/generators/TextToImageTool.tsx",
+        "frontend/src/features/generators/TextToVideoTool.tsx",
+        "frontend/src/features/history/RecentGenerationsPanel.tsx",
+        "frontend/src/features/history/useBuildHistory.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-5"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-provide-a-coherent-visual-theme-for-the-whole-site-colors-typography-spacing-and-component-styling-and-apply-it-consistently-across-all-three-activities-and-the-history-panel-avoid-a-blue-purple-color-scheme",
+      "featureTitle": "Provide a coherent visual theme for the whole site (colors, typography, spacing, and component styling) and apply it consistently across all three activities and the history panel (avoid a blue/purple color scheme).",
+      "files": [
+        "frontend/index.css",
+        "frontend/src/App.tsx",
+        "frontend/src/index.css"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-6"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-basic-ux-states-for-all-generators-generating-in-progress-state-success-state-with-preview-and-failure-state-with-an-english-error-message-e-g-if-the-browser-cannot-export-a-video",
+      "featureTitle": "Add basic UX states for all generators: generating/in-progress state, success state with preview, and failure state with an English error message (e.g., if the browser cannot export a video).",
+      "files": [
+        "frontend/src/features/generators/ImageToVideoTool.tsx",
+        "frontend/src/features/generators/TextToImageTool.tsx",
+        "frontend/src/features/generators/TextToVideoTool.tsx",
+        "frontend/src/features/utils/mediaExport.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-7"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

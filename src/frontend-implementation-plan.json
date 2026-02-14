@@ -1,0 +1,208 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Local demo generator hub (Text-to-Image, Text-to-Video, Image-to-Video) with themed UI and per-user history",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "summary": "Single-page UI with three activities navigable via tabs/segmented control while preserving each activity’s inputs.",
+      "acceptanceCriteria": [
+        "The landing view shows three selectable activities: Text-to-Image, Text-to-Video, Image-to-Video.",
+        "Switching activities preserves each activity’s form inputs until the user resets them.",
+        "All user-facing labels and helper text are in English."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "create",
+          "description": "Create the single-page shell that renders a header (logo), an activity switcher (tabs/segmented control), and mounts the three tool views without losing their local state; wire the generated icon set from frontend/public/assets/generated/tool-icons.dim_512x512.png and the wordmark from frontend/public/assets/generated/logo.dim_512x256.png into the header/navigation."
+        },
+        {
+          "path": "frontend/src/features/generators/TextToImageTool.tsx",
+          "operation": "create",
+          "description": "Create the Text-to-Image activity view component and expose controlled props/state (or keep internal state but ensure the parent preserves component instance/state as required) to prevent input loss when switching tabs."
+        },
+        {
+          "path": "frontend/src/features/generators/TextToVideoTool.tsx",
+          "operation": "create",
+          "description": "Create the Text-to-Video activity view component and structure state so switching tabs does not reset inputs unless the user explicitly resets."
+        },
+        {
+          "path": "frontend/src/features/generators/ImageToVideoTool.tsx",
+          "operation": "create",
+          "description": "Create the Image-to-Video activity view component and preserve upload/controls state across activity switches as required."
+        }
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "summary": "Text-to-Image UI with prompt + basic style controls and local/demo image generation with preview and download.",
+      "acceptanceCriteria": [
+        "User can enter a prompt and click Generate to produce an image preview.",
+        "User can download the generated image (e.g., PNG).",
+        "If the prompt is empty, the UI prevents generation and shows an English validation message.",
+        "Generation runs locally in the browser (no third-party AI API calls)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/features/generators/TextToImageTool.tsx",
+          "operation": "modify",
+          "description": "Implement local/demo image generation using browser-only APIs (e.g., Canvas2D) driven by prompt + controls (aspect ratio + simple style preset selector), show preview, and provide a PNG download action; include English validation for empty prompt and ensure no external AI/network calls are used."
+        },
+        {
+          "path": "frontend/src/features/utils/download.ts",
+          "operation": "create",
+          "description": "Add browser-only helpers to download generated artifacts (e.g., dataURL/Blob to file) used by Text-to-Image and the video tools; keep all UX labels/messages in English."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Text-to-Video UI with prompt + motion controls and local/demo video generation with preview and download.",
+      "acceptanceCriteria": [
+        "User can enter a prompt and click Generate to produce a video preview element.",
+        "User can download the generated video.",
+        "If the prompt is empty, the UI prevents generation and shows an English validation message.",
+        "No third-party AI API calls are used for generation."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/features/generators/TextToVideoTool.tsx",
+          "operation": "modify",
+          "description": "Implement a local/demo text-driven animation renderer (e.g., Canvas2D frames derived from prompt + motion style) and export to a browser-supported format (e.g., MediaRecorder WebM); show a video preview and provide a download action with English validation for empty prompt and no third-party AI calls."
+        },
+        {
+          "path": "frontend/src/features/utils/mediaExport.ts",
+          "operation": "create",
+          "description": "Add browser-only utilities to render/record animations to a downloadable video (e.g., canvas captureStream + MediaRecorder) with clear error signaling when export is unsupported; keep implementation local (no external services)."
+        }
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "summary": "Image-to-Video UI with image upload + animation controls and local/demo video generation with preview and download.",
+      "acceptanceCriteria": [
+        "User can upload an image and see a preview of the uploaded image.",
+        "User can click Generate to produce a video preview derived from the uploaded image.",
+        "If no image is uploaded, the UI prevents generation and shows an English validation message.",
+        "No third-party AI API calls are used for generation."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/features/generators/ImageToVideoTool.tsx",
+          "operation": "modify",
+          "description": "Implement upload + preview (using browser File APIs) and animate the uploaded image locally (e.g., pan/zoom/rotate presets) into a short recorded video using the shared media export helper; prevent generation without an uploaded image and show English validation/errors."
+        },
+        {
+          "path": "frontend/src/features/utils/mediaExport.ts",
+          "operation": "modify",
+          "description": "Extend the local video export helper to support recording an animation based on an image source (e.g., draw the uploaded image to a canvas each frame) and produce a downloadable Blob; ensure failures surface as English error messages."
+        }
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "summary": "Frontend integration for per-user recent generation history (metadata only) using the existing backend interface and authenticated identity.",
+      "acceptanceCriteria": [
+        "Backend provides methods to add a history entry and to list history entries for the authenticated user.",
+        "Frontend shows a 'Recent generations' panel listing at least: activity type, prompt (or a truncated version), and time.",
+        "History persists across page reloads for the same user identity.",
+        "No generated binary media is stored in the canister; only metadata is stored."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/features/history/useBuildHistory.ts",
+          "operation": "create",
+          "description": "Create React Query hooks that use the existing actor (via useActor) to list recent history for the signed-in user and to record a new build after successful local generation; derive/display activity type from the stored metadata available to the frontend (e.g., encode type into the artifact identifier/filename string) and do not upload binary media."
+        },
+        {
+          "path": "frontend/src/features/history/RecentGenerationsPanel.tsx",
+          "operation": "create",
+          "description": "Implement a 'Recent generations' UI panel that shows activity type (derived), truncated prompt, and formatted time; show an English message prompting login when not authenticated; ensure the panel reads from canister metadata only and never attempts to store binary artifacts."
+        },
+        {
+          "path": "frontend/src/features/auth/LoginButton.tsx",
+          "operation": "create",
+          "description": "Add an Internet Identity login/logout control using the selected authorization component’s frontend guidance (via existing useInternetIdentity hook) and clear cached queries on logout; Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire the LoginButton and RecentGenerationsPanel into the single-page layout; ensure history fetch/record only occurs for authenticated users, while local generation can still run without third-party services."
+        },
+        {
+          "path": "frontend/src/features/generators/TextToImageTool.tsx",
+          "operation": "modify",
+          "description": "After successful local generation, call the history record hook to store metadata (prompt + client-generated artifact identifier/filename, including an activity-type prefix) without storing any binary data; use English-only user-facing text."
+        },
+        {
+          "path": "frontend/src/features/generators/TextToVideoTool.tsx",
+          "operation": "modify",
+          "description": "After successful local generation, record metadata to history (prompt + artifact identifier/filename with activity-type prefix) and keep binary media local only."
+        },
+        {
+          "path": "frontend/src/features/generators/ImageToVideoTool.tsx",
+          "operation": "modify",
+          "description": "After successful local generation, record metadata to history (prompt can be an English placeholder derived from the upload context if needed, plus an artifact identifier/filename with activity-type prefix) and keep binary media local only."
+        }
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "summary": "Apply a consistent non-blue/purple visual theme across all activities and the history panel.",
+      "acceptanceCriteria": [
+        "All screens share a consistent theme (palette, type scale, spacing).",
+        "Primary/secondary actions have consistent styling across activities.",
+        "Theme does not rely on blue/purple as the dominant brand colors."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/index.css",
+          "operation": "modify",
+          "description": "Adjust global design tokens (CSS variables) to establish a cohesive theme (colors/typography/spacing feel) with a non-blue/purple dominant palette (e.g., warm neutrals with amber/emerald accents) and ensure consistency across the entire app."
+        },
+        {
+          "path": "frontend/src/index.css",
+          "operation": "create",
+          "description": "Create the stylesheet imported by frontend/src/main.tsx and bridge to the existing global Tailwind setup (e.g., import the root frontend/index.css) so theme changes apply consistently without modifying immutable files."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Ensure layout spacing, typography, and component styling are applied consistently across the three tools and the history panel using the established theme tokens (no blue/purple-dominant styling)."
+        }
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "summary": "Add generating/success/failure UX states for all generators with English messaging and resilient error handling.",
+      "acceptanceCriteria": [
+        "Generate button shows a loading state and is disabled during generation.",
+        "Errors are shown in English and do not crash the page.",
+        "Success shows a preview plus a download action."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/features/generators/TextToImageTool.tsx",
+          "operation": "modify",
+          "description": "Add in-progress, success (preview + download), and failure states with English error messages; disable Generate while running and prevent crashes on exceptions."
+        },
+        {
+          "path": "frontend/src/features/generators/TextToVideoTool.tsx",
+          "operation": "modify",
+          "description": "Add in-progress, success (video element + download), and failure states; explicitly handle cases where the browser cannot export/record video and show an English error message."
+        },
+        {
+          "path": "frontend/src/features/generators/ImageToVideoTool.tsx",
+          "operation": "modify",
+          "description": "Add in-progress, success (video preview + download), and failure states; handle unsupported MediaRecorder/export errors and show English error messages without crashing."
+        },
+        {
+          "path": "frontend/src/features/utils/mediaExport.ts",
+          "operation": "modify",
+          "description": "Standardize error creation/propagation for unsupported recording/export scenarios so all generator UIs can present consistent English failure messages."
+        }
+      ]
+    }
+  ]
+}

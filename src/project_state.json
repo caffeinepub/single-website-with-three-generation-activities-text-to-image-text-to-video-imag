@@ -1,0 +1,97 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 3,
+  "summary": "Build a single website that offers multiple generative AI activities: text-to-image, text-to-video, and image-to-video.",
+  "architectural_notes": [],
+  "known_issues": [],
+  "isFixRequest": false,
+  "imageRequirements": "## Required Images\n- Minimalistic three-icon set representing: text-to-image, text-to-video, image-to-video (tool-icons.dim_512x512.png)\n- Simple wordmark logo, monochrome, clean geometric style (logo.dim_512x256.png)",
+  "existing_features": [
+    {
+      "id": "feature-create-a-single-page-website-that-offers-three-distinct-activities-tools-text-to-image-text-to-video-and-image-to-video-with-clear-navigation-tabs-or-segmented-control-to-switch-between-them-without-leaving-the-page",
+      "title": "Create a single-page website that offers three distinct activities/tools: Text-to-Image, Text-to-Video, and Image-to-Video, with clear navigation (tabs or segmented control) to switch between them without leaving the page.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-text-to-image-activity-ui-that-accepts-a-prompt-text-basic-style-controls-at-least-aspect-ratio-and-a-simple-style-selector-and-generates-a-downloadable-image-result-using-an-on-device-demo-generator-no-external-ai-services",
+      "title": "Implement a Text-to-Image activity UI that accepts a prompt (text), basic style controls (at least: aspect ratio and a simple style selector), and generates a downloadable image result using an on-device/demo generator (no external AI services).",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-text-to-video-activity-ui-that-accepts-a-prompt-and-simple-motion-controls-at-least-duration-and-motion-style-and-generates-a-short-downloadable-demo-video-result-locally-in-the-browser-e-g-simple-animated-frames-rendered-to-a-video-format-supported-by-the-browser",
+      "title": "Implement a Text-to-Video activity UI that accepts a prompt and simple motion controls (at least: duration and motion style) and generates a short downloadable demo video result locally in the browser (e.g., simple animated frames rendered to a video format supported by the browser).",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-an-image-to-video-activity-ui-that-allows-the-user-to-upload-an-image-select-simple-animation-controls-at-least-duration-and-animation-style-and-generates-a-short-downloadable-demo-video-by-animating-the-uploaded-image-locally-in-the-browser",
+      "title": "Implement an Image-to-Video activity UI that allows the user to upload an image, select simple animation controls (at least: duration and animation style), and generates a short downloadable demo video by animating the uploaded image locally in the browser.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-lightweight-backend-support-motoko-single-actor-to-store-a-user-s-generation-history-metadata-activity-type-prompt-timestamps-and-client-generated-artifact-identifiers-filenames-and-expose-query-update-methods-so-the-frontend-can-display-a-recent-history-list-per-signed-in-user",
+      "title": "Add lightweight backend support (Motoko single-actor) to store a user’s generation history metadata (activity type, prompt, timestamps, and client-generated artifact identifiers/filenames) and expose query/update methods so the frontend can display a recent history list per signed-in user.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-provide-a-coherent-visual-theme-for-the-whole-site-colors-typography-spacing-and-component-styling-and-apply-it-consistently-across-all-three-activities-and-the-history-panel-avoid-a-blue-purple-color-scheme",
+      "title": "Provide a coherent visual theme for the whole site (colors, typography, spacing, and component styling) and apply it consistently across all three activities and the history panel (avoid a blue/purple color scheme).",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-basic-ux-states-for-all-generators-generating-in-progress-state-success-state-with-preview-and-failure-state-with-an-english-error-message-e-g-if-the-browser-cannot-export-a-video",
+      "title": "Add basic UX states for all generators: generating/in-progress state, success state with preview, and failure state with an English error message (e.g., if the browser cannot export a video).",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Create a single website with multiple generator activities/tools",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Add text-to-image generation activity",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Add text-to-video generation activity",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Add image-to-video generation activity",
+      "reqIds": [],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "Single website with three generation activities (text-to-image, text-to-video, image-to-video) using local demo generators",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

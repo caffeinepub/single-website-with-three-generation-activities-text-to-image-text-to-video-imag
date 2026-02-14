@@ -1,0 +1,14 @@
+{
+  "frontend/src/App.tsx": "Main application shell with tabbed navigation for three generator tools (text-to-image, text-to-video, image-to-video), history panel, header with login, and footer with attribution.",
+  "frontend/src/features/auth/LoginButton.tsx": "Internet Identity login/logout button component with loading states and query cache clearing on logout.",
+  "frontend/src/features/generators/TextToImageTool.tsx": "Text-to-image generator UI with prompt input, aspect ratio and style controls, local canvas-based image generation, preview, and download functionality.",
+  "frontend/src/features/generators/TextToVideoTool.tsx": "Text-to-video generator UI with prompt input, duration and motion style controls, local canvas-based video generation using MediaRecorder, preview, and download.",
+  "frontend/src/features/generators/ImageToVideoTool.tsx": "Image-to-video generator UI with file upload, animation style controls, local video generation by animating uploaded images, preview, and download.",
+  "frontend/src/features/history/RecentGenerationsPanel.tsx": "Displays user's generation history with activity type icons, truncated prompts, and timestamps; shows login prompt for unauthenticated users.",
+  "frontend/src/features/history/useBuildHistory.ts": "React Query hooks for fetching user build history and recording new builds to the backend canister.",
+  "frontend/src/features/utils/download.ts": "Browser utility function to download files from data URLs or blob URLs.",
+  "frontend/src/features/utils/imageGenerator.ts": "Local canvas-based image generator that creates abstract, geometric, gradient, or pattern images based on text prompts.",
+  "frontend/src/features/utils/mediaExport.ts": "Local video generation utilities using Canvas2D and MediaRecorder API for text-to-video and image-to-video animations.",
+  "frontend/src/hooks/useQueries.ts": "Empty placeholder file as all queries are feature-specific and located in their respective directories.",
+  "frontend/src/index.css": "Imports the root index.css to apply global Tailwind styles and design tokens."
+}
